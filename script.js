@@ -1,7 +1,8 @@
 let posts
 
 $(document).ready(function(){
-    // getPost(1);
+    let userID
+    getPost(1);
 
     $("#createUser").click(function(){
         const rFirstName = $("#rFirstName").val();
@@ -23,23 +24,84 @@ $(document).ready(function(){
     });
 
     $("#login").click(function(){
-
+        const lUserName = $("#lUserName").val();
+        $.ajax({
+            type: "POST",
+            url: "http://hyeumine.com/forumLogin.php",
+            data: {
+                username : lUserName
+            },
+            success: (data) => {
+                data = JSON.parse(data);
+                console.log(data)
+                userID = data.user.id
+                console.log(userID)
+            }
+        });
     });
 
     $("#newPost").click(function(){
-
+        const message = $("#postNew").val();
+        $.ajax({
+            type: "POST",
+            url: "http://hyeumine.com/forumNewPost.php",
+            data: {
+                id : userID,
+                post : message
+            },
+            success: (data) => {
+                data = JSON.parse(data);
+                console.log(data)
+            }
+        });
     });
 
     $("#deletePost").click(function(){
-
+        const deleteCode = $("#postDelete").val();
+        $.ajax({
+            type: "GET",
+            url: "http://hyeumine.com/forumDeletePost.php",
+            data: {
+                id : deleteCode
+            },
+            success: (data) => {
+                data = JSON.parse(data);
+                console.log(data)
+            }
+        });
     });
 
     $("#replyPost").click(function(){
-
+        const replyCode = $("#postReply").val();
+        const replyMsg = $("#postReplyCode").val();
+        $.ajax({
+            type: "POST",
+            url: "http://hyeumine.com/forumReplyPost.php",
+            data: {
+                user_id : userID,
+                post_id : replyCode,
+                reply : replyMsg
+            },
+            success: (data) => {
+                data = JSON.parse(data);
+                console.log(data)
+            }
+        });
     });
 
     $("#deleteReply").click(function(){
-
+        const deleteCode = $("#postReplyCodeDelete").val();
+        $.ajax({
+            type: "GET",
+            url: "http://hyeumine.com/forumDeleteReply.php",
+            data: {
+                id : deleteCode
+            },
+            success: (data) => {
+                data = JSON.parse(data);
+                console.log(data)
+            }
+        });
     });
 
 

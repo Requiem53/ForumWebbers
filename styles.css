@@ -17,6 +17,10 @@ body{
     background-color: yellow;
 }
 
+.deleteReply:hover{
+    background-color: rgb(255, 124, 124);
+}
+
 #loginFront{
     display: flex;
     flex-direction: column;
@@ -55,21 +59,25 @@ body{
     border: none;
 }
 
+#inProgress{
+    width: 100%;
+}
+
 #posts{
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
     gap: 10px;
-    margin: auto;
-    margin-left: 5%;
-    margin-right: 5%;
+    justify-content: center;
+    width: 100%;
+    margin-left: 20%;
+    margin-right: 20%;
+
 }
 
 .indivPost{
     padding: 5px;
     border: solid 2px black;
     display: block;
-    min-width: 2rem;
     display: block;
     word-break: break-word;
 }
@@ -79,19 +87,44 @@ body{
 }
 
 .date{
+    display: flex;
+    justify-content: space-between;
     font-weight: 300;
     font-style: italic;
 }
 
 .wholePost{
-    padding: 10px;
+    padding: 15px;
     font-size: 22px;
-    
+    border: solid 2px;
+    margin-bottom: 10px;
 }
 
-#replies{
+.wholeReply{
+    padding: 10px;
+    font-size: 20px;
+}
+
+.replies{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 10px;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.poster{
+    display: flex;
+    justify-content: space-between;
+}
+
+.posterCode{
+    text-align: right;
+    display: inline;
+    font-weight: 300;
+    font-style: italic;
+}
+
+#inProgress{
+    display: flex;
 }

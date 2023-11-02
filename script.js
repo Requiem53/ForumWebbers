@@ -138,8 +138,9 @@ $(document).ready(function(){
         });
     });
 
-    $("#deleteReply").click(function(){
-        const deleteCode = $("#postReplyCodeDelete").val();
+    $(".deleteReply").click(function(){
+        const deleteCode = this.id;
+        console.log(deleteCode);
         $.ajax({
             type: "GET",
             url: "http://hyeumine.com/forumDeleteReply.php",
@@ -181,25 +182,31 @@ function showPosts(posts){
     posts.forEach((post) => {
         $("#posts").append(`
             <div class="wholePost">
-                <div>${post.user} posted: </div>
+                <div class="poster">${post.user} posted: <div class="posterCode">User Code: ${post.uid}</div></div>
                 <div class="indivPost">
                     <div class="postItself">${post.post}</div>
                 </div>
-                <div class="date">${post.date}</div>
-            </div>
-            <div c  lass="replies" id=${post.id}></div>
+                <div class="date">${post.date} <div class="posterCode">Post Code: ${post.id}</div></div>
+                <div class="replies" id=${post.id}></div>
+            </div> 
         `);
 
-        posts.forEach((reply) => {
-            $(`#${post.id}`).append(`
-                <div class="wholePost">
-                    <div>${reply.user} replied to ${post.user}: </div>
-                    <div class="indivPost">
-                        <div class="postItself">${reply}</div>
+        if(post.reply != undefined){
+            let replies = post.reply;
+
+            replies.forEach((reply) => {
+                $(`#${post.id}`).append(`
+                    <div class="wholeReply">
+                        <div class="poster">${reply.user} replied: <div class="posterCode">User Code: ${post.uid}</div></div>
+                        <div class="indivPost">
+                            <div class="replyItself">${reply.reply}</div>
+                        </div>
+                        <div class="date">${reply.date} <div class="posterCode">Reply Code: ${reply.id}</div></div>
+                        <button class="deleteReply" type="button" id="${reply.id}">Delete Reply</button>
                     </div>
-                    <div class="date">${reply.date}</div>
-                </div>
-            `);
-        });
+                `)
+            });
+        }
+        
     });
 }

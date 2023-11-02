@@ -28,24 +28,26 @@
     </div>
 
     <div id="inProgress">
-        <div id="posts"></div>
-        
-        <p>New Post</p>
-        <input type="text" id="postNew" val="" placeholder="Enter message">
-        <button class="important" type="button" id="newPost">New Post</button>
+        <div id="actions">
+            <p>New Post</p>
+            <input type="text" id="postNew" val="" placeholder="Enter message">
+            <button class="important" type="button" id="newPost">New Post</button>
+    
+            <p>Delete Post</p>
+            <input type="text" id="postDelete" val="" placeholder="Enter post code to delete">
+            <button class="important" type="button" id="deletePost">Delete Post</button>
+            
+            <p>Reply to Post</p>
+            <input type="text" id="postReply" val="" placeholder="Enter reply">
+            <input type="text" id="postReplyCode" val="" placeholder="Enter post code to reply">
+            <button class="important" type="button" id="replyPost">Reply Post</button>
+            
+            <p>Delete Reply</p>
+            <input type="text" id="postReplyCodeDelete" val="" placeholder="Enter reply code to delete reply">
+            <button class="important" type="button" id="deleteReply">Delete Reply</button>
+        </div>
 
-        <p>Delete Post</p>
-        <input type="text" id="postDelete" val="" placeholder="Enter post code to delete">
-        <button class="important" type="button" id="deletePost">Delete Post</button>
-        
-        <p>Reply to Post</p>
-        <input type="text" id="postReply" val="" placeholder="Enter reply">
-        <input type="text" id="postReplyCode" val="" placeholder="Enter post code to reply">
-        <button class="important" type="button" id="replyPost">Reply Post</button>
-        
-        <p>Delete Reply</p>
-        <input type="text" id="postReplyCodeDelete" val="" placeholder="Enter reply code to delete reply">
-        <button class="important" type="button" id="deleteReply">Delete Reply</button>
+        <div id="posts"></div>
     </div>
 </body>
 </html>

@@ -4,30 +4,48 @@
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="script.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forums</title>
 </head>
 <body>
-    <p>Register</p>
-    <input type="text" id="rFirstName" val="" placeholder="First Name">
-    <input type="text" id="rLastName" val="" placeholder="Last Name">
-    <input type="text" id="rUserName" val="" placeholder="Username">
-    <button type="button" id="createUser">Create User</button>
-    <p>Login</p>
-    <input type="text" id="lUserName" val="" placeholder="Username">
-    <button type="button" id="login">Login</button>
-    <p>New Post</p>
-    <input type="text" id="postNew" val="" placeholder="Enter message">
-    <button type="button" id="newPost">New Post</button>
-    <p>Delete Post</p>
-    <input type="text" id="postDelete" val="" placeholder="Enter post code to delete">
-    <button type="button" id="deletePost">Delete Post</button>
-    <p>Reply to Post</p>
-    <input type="text" id="postReply" val="" placeholder="Enter reply">
-    <input type="text" id="postReplyCode" val="" placeholder="Enter post code to reply">
-    <button type="button" id="replyPost">Reply Post</button>
-    <p>Delete Reply</p>
-    <input type="text" id="postReplyCodeDelete" val="" placeholder="Enter reply code to delete reply">
-    <button type="button" id="deleteReply">Delete Reply</button>
+    <h1>F1 Forums</h1>
+
+    <div id="registerFront">
+        <p>Register</p>
+        <input type="text" id="rFirstName" val="" placeholder="First Name">
+        <input type="text" id="rLastName" val="" placeholder="Last Name">
+        <input type="text" id="rUserName" val="" placeholder="Username">
+        <button class="important" type="button" id="createUser">Create User</button>
+        <button id="loginer"><div id="registerJump">or login by clicking here instead</div></button>
+    </div>
+
+    <div id="loginFront">
+        <p id="loginText">Login</p>
+        <input type="text" id="lUserName" val="" placeholder="Username">
+        <button class="important" type="button" id="login">Login</button>
+        <button id="registerer"><div id="registerJump">or register by clicking here instead</div></button>
+    </div>
+
+    <div id="inProgress">
+        <div id="posts"></div>
+        
+        <p>New Post</p>
+        <input type="text" id="postNew" val="" placeholder="Enter message">
+        <button class="important" type="button" id="newPost">New Post</button>
+
+        <p>Delete Post</p>
+        <input type="text" id="postDelete" val="" placeholder="Enter post code to delete">
+        <button class="important" type="button" id="deletePost">Delete Post</button>
+        
+        <p>Reply to Post</p>
+        <input type="text" id="postReply" val="" placeholder="Enter reply">
+        <input type="text" id="postReplyCode" val="" placeholder="Enter post code to reply">
+        <button class="important" type="button" id="replyPost">Reply Post</button>
+        
+        <p>Delete Reply</p>
+        <input type="text" id="postReplyCodeDelete" val="" placeholder="Enter reply code to delete reply">
+        <button class="important" type="button" id="deleteReply">Delete Reply</button>
+    </div>
 </body>
 </html>

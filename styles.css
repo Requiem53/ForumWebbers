@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
+
+*{
+    font-family: 'Open Sans';
+    background-color: rgb(223, 255, 255);
+    
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.important:hover{
+    background-color: yellow;
+}
+
+#loginFront{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#registerFront{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#registerJump{
+    font-weight: 300;
+    font-style: italic;
+}
+
+#loginText{
+    font-size: large;
+    font-weight: bold;
+}
+
+#registerJump:hover{
+    color:blue;
+}
+
+#registerer{
+    border: none;
+}
+
+#loginer{
+    border: none;
+}
+
+#posts{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+    margin: auto;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.indivPost{
+    padding: 5px;
+    border: solid 2px black;
+    display: block;
+    min-width: 2rem;
+    display: block;
+    word-break: break-word;
+}
+
+.postItself{
+    word-wrap: break-word;
+}
+
+.date{
+    font-weight: 300;
+    font-style: italic;
+}
+
+.wholePost{
+    padding: 10px;
+    font-size: 22px;
+    
+}
+
+#replies{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}

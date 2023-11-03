@@ -1,4 +1,5 @@
 let posts
+let userID
 
 $(document).ready(function(){
     $("#loginFront").show()
@@ -9,7 +10,7 @@ $(document).ready(function(){
     // $("#registerFront").hide()
     // $("#inProgress").show()
 
-    let userID
+    
 
     $("#registerer").click(function(){
         $("#loginFront").hide()
@@ -36,6 +37,7 @@ $(document).ready(function(){
             success: (data) => {
                 data = JSON.parse(data);
                 console.log(data)
+                userID = data.user.id
                 getPost(10);
                 $("#registerFront").hide()
                 $("#inProgress").show()
@@ -97,69 +99,73 @@ $(document).ready(function(){
         });
     });
 
-    $("#deletePost").click(function(){
-        const deleteCode = $("#postDelete").val();
-        $.ajax({
-            type: "GET",
-            url: "http://hyeumine.com/forumDeletePost.php",
-            data: {
-                id : deleteCode
-            },
-            success: (data) => {
-                data = JSON.parse(data);
-                console.log(data)
-            },
-            error: function(xhr, status, error) {
-                var err = eval("An error has occured" + "(" + xhr.responseText + ")");
-                alert(err.Message);
-            }
-        });
-    });
-
-    $("#replyPost").click(function(){
-        const replyCode = $("#postReply").val();
-        const replyMsg = $("#postReplyCode").val();
-        $.ajax({
-            type: "POST",
-            url: "http://hyeumine.com/forumReplyPost.php",
-            data: {
-                user_id : userID,
-                post_id : replyCode,
-                reply : replyMsg
-            },
-            success: (data) => {
-                data = JSON.parse(data);
-                console.log(data)
-            },
-            error: function(xhr, status, error) {
-                var err = eval("An error has occured" + "(" + xhr.responseText + ")");
-                alert(err.Message);
-            }
-        });
-    });
-
-    $(".deleteReply").click(function(){
-        const deleteCode = this.id;
-        console.log(deleteCode);
-        $.ajax({
-            type: "GET",
-            url: "http://hyeumine.com/forumDeleteReply.php",
-            data: {
-                id : deleteCode
-            },
-            success: (data) => {
-                data = JSON.parse(data);
-                console.log(data)
-            },
-            error: function(xhr, status, error) {
-                var err = eval("An error has occured" + "(" + xhr.responseText + ")");
-                alert(err.Message);
-            }
-        });
-    });
-
-
 });
+function replyPost(code){
+    const replyCode = code;
+    const replyMsg = $(`#pr${code}`).val();
+    $.ajax({
+        type: "POST",
+        url: "http://hyeumine.com/forumReplyPost.php",
+        data: {
+            user_id : userID,
+            post_id : replyCode,
+            reply : replyMsg
+        },
+        success: (data) => {
+            data = JSON.parse(data);
+            console.log(data);
+            alert("Successfully replied! Refresh page to see reply.");
+        },
+        error: function(xhr, status, error) {
+            var err = eval("An error has occured" + "(" + xhr.responseText + ")");
+            alert(err.Message);
+        }
+    });
+}
+
+
+function deletePost(code){
+    const deleteCode = code;
+    $.ajax({
+        type: "GET",
+        url: "http://hyeumine.com/forumDeletePost.php",
+        data: {
+            id : deleteCode
+        },
+        success: (data) => {
+            data = JSON.parse(data);
+            console.log(data);
+            document.getElementById(`wh${code}`).remove();
+            alert("Successfully deleted post!");
+        },
+        error: function(xhr, status, error) {
+            var err = eval("An error has occured" + "(" + xhr.responseText + ")");
+            alert(err.Message);
+        }
+    });
+}
+
+
+function deleteReply(code){
+    const deleteCode = code
+    $.ajax({
+        type: "GET",
+        url: "http://hyeumine.com/forumDeleteReply.php",
+        data: {
+            id : deleteCode
+        },
+        success: (data) => {
+            data = JSON.parse(data);
+            console.log(data)
+            document.getElementById(`re${code}`).remove();
+            alert("Successfully deleted reply!");
+        },
+        error: function(xhr, status, error) {
+            var err = eval("An error has occured" + "(" + xhr.responseText + ")");
+            alert(err.Message);
+        }
+    });
+};
 
 function getPost(page){
     $.ajax({
@@ -181,12 +187,15 @@ function showPosts(posts){
     $("#posts").html("");
     posts.forEach((post) => {
         $("#posts").append(`
-            <div class="wholePost">
+            <div class="wholePost" id="wh${post.id}">
                 <div class="poster">${post.user} posted: <div class="posterCode">User Code: ${post.uid}</div></div>
                 <div class="indivPost">
                     <div class="postItself">${post.post}</div>
                 </div>
                 <div class="date">${post.date} <div class="posterCode">Post Code: ${post.id}</div></div>
+                <input class="inputter" type="text" id="pr${post.id}" val="" placeholder="Enter reply">
+                <button class="replyer" type="button" onclick="replyPost(${post.id})">Reply to Post</button>
+                <button class="deleter" type="button" onclick="deletePost(${post.id})">Delete Post</button>
                 <div class="replies" id=${post.id}></div>
             </div> 
         `);
@@ -196,13 +205,13 @@ function showPosts(posts){
 
             replies.forEach((reply) => {
                 $(`#${post.id}`).append(`
-                    <div class="wholeReply">
+                    <div class="wholeReply" id="re${reply.id}">
                         <div class="poster">${reply.user} replied: <div class="posterCode">User Code: ${post.uid}</div></div>
                         <div class="indivPost">
                             <div class="replyItself">${reply.reply}</div>
                         </div>
                         <div class="date">${reply.date} <div class="posterCode">Reply Code: ${reply.id}</div></div>
-                        <button class="deleteReply" type="button" id="${reply.id}">Delete Reply</button>
+                        <button class="deleter" type="button" onclick="deleteReply(${reply.id})">Delete Reply</button>
                     </div>
                 `)
             });

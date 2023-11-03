@@ -17,7 +17,16 @@ body{
     background-color: yellow;
 }
 
-.deleteReply:hover{
+.inputReply{
+    width: 100%;
+}
+
+.deleter{
+    display: inline;
+    margin-left: auto;
+}
+
+.deleter:hover{
     background-color: rgb(255, 124, 124);
 }
 
@@ -78,8 +87,18 @@ body{
     padding: 5px;
     border: solid 2px black;
     display: block;
-    display: block;
     word-break: break-word;
+}
+
+.inputter{
+    padding: 5px;
+    border: solid 2px black;
+    width: 60%;
+    font-size: 18px;
+}
+
+.replyer:hover{
+    background-color: lightyellow;
 }
 
 .postItself{

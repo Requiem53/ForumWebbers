@@ -31,14 +31,17 @@ body{
 }
 
 #loginFront{
+    font-size: 22px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
+    font-size: 22px;
 }
 
 #registerFront{
+    font-size: 22px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -52,8 +55,52 @@ body{
 }
 
 #loginText{
-    font-size: large;
+    font-size: 22px;
     font-weight: bold;
+}
+
+.welp{
+    display: flex;
+    flex-direction: row;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-bottom: 10px;
+}
+
+.prevnext{
+    padding: 5px;
+    border: solid 2px black;
+    display: block;
+    word-break: break-word;
+    font-size: 22px;
+    width: 100%;
+    margin: 10px;
+}
+
+#logout{
+    padding: 5px;
+    border: solid 2px black;
+    font-size: 22px;
+    width: 20%;
+    margin-left: 40%;
+    margin-bottom: 20px;
+}
+
+#logout:hover{
+    background-color: rgb(255, 124, 124);
+}
+
+.prevnext:hover{
+    background-color: lightyellow;
+}
+
+#currPage{
+    display: flex;
+    justify-content: center;
+    font-size: 22px;
+}
+#nextPage{
+    margin-left: auto;
 }
 
 #registerJump:hover{
@@ -69,7 +116,27 @@ body{
 }
 
 #inProgress{
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+
+.newPoster{
+    font-size: 22px;
+}
+
+.newPostbox{
+    margin-bottom: 20px;
+    padding: 5px;
+    border: solid 2px black;
+    border-top: 0;
+    display: block;
+    word-break: break-word;
+    font-size: 22px;
+}
+
+.newPoster:hover{
+    background-color: lightyellow;
 }
 
 #posts{
@@ -78,8 +145,6 @@ body{
     gap: 10px;
     justify-content: center;
     width: 100%;
-    margin-left: 20%;
-    margin-right: 20%;
 
 }
 

@@ -1,17 +1,33 @@
+let currPage = 1;
 let posts
 let userID
+let loginStatus
 
 $(document).ready(function(){
-    $("#loginFront").show()
-    $("#registerFront").hide()
-    $("#inProgress").hide()
+    loginStatus = localStorage.getItem("loggedIn");
 
-    // $("#loginFront").hide()
-    // $("#registerFront").hide()
-    // $("#inProgress").show()
+    if(loginStatus == "true"){
+        const currUser = JSON.parse(localStorage.getItem("currUser"))
+        userID = currUser.id
+        currPage = localStorage.getItem("currPage")
+        getPost(currPage);
+        showPosts(posts);
+        $("#loginFront").hide()
+        $("#registerFront").hide()
+        $("#inProgress").show()
+    }else{
+        $("#loginFront").show()
+        $("#registerFront").hide()
+        $("#inProgress").hide()
+    }
+    $("#logout").click(function(){
+        localStorage.clear();
+        $("#loginFront").show()
+        $("#registerFront").hide()
+        $("#inProgress").hide()
+    });
 
     
-
     $("#registerer").click(function(){
         $("#loginFront").hide()
         $("#registerFront").show()
@@ -21,6 +37,28 @@ $(document).ready(function(){
         $("#loginFront").show()
         $("#registerFront").hide()
     });
+
+    $("#prevPage").click(function(){
+        if(currPage > 1){
+            getPost(currPage-1);
+            if(posts.length > 0){
+                document.querySelectorAll('.wholePost').forEach(e => e.remove());
+                showPosts(posts);
+                currPage--;
+            }
+        }
+        document.getElementById("currPage").innerHTML = `Current Page: ${currPage}`
+    })
+
+    $("#nextPage").click(function(){
+        getPost(currPage+1);
+            if(posts.length > 0){
+                document.querySelectorAll('.wholePost').forEach(e => e.remove());
+                showPosts(posts);
+                currPage++;
+            }
+        document.getElementById("currPage").innerHTML = `Current Page: ${currPage}`
+    })
 
     $("#createUser").click(function(){
         const rFirstName = $("#rFirstName").val();
@@ -37,8 +75,11 @@ $(document).ready(function(){
             success: (data) => {
                 data = JSON.parse(data);
                 console.log(data)
-                userID = data.user.id
-                getPost(10);
+                userID = data.id
+                localStorage.setItem("currUser", JSON.stringify(data));
+                localStorage.setItem("loggedIn", "true");
+                localStorage.setItem("currPage", currPage);
+                getPost(currPage);
                 $("#registerFront").hide()
                 $("#inProgress").show()
                 showPosts(posts);
@@ -65,8 +106,11 @@ $(document).ready(function(){
                     alert("Error: User may not exist. Register instead");
                 }else{
                     userID = data.user.id
+                    localStorage.setItem("currUser", JSON.stringify(data));
+                    localStorage.setItem("loggedIn", "true");
+                    localStorage.setItem("currPage", currPage);
                     console.log(userID)
-                    getPost(10);
+                    getPost(currPage);
                     $("#loginFront").hide();
                     $("#inProgress").show();
                     showPosts(posts);
@@ -80,7 +124,7 @@ $(document).ready(function(){
     });
 
     $("#newPost").click(function(){
-        const message = $("#postNew").val();
+        const message = $("#newPostText").val();
         $.ajax({
             type: "POST",
             url: "http://hyeumine.com/forumNewPost.php",
@@ -90,19 +134,19 @@ $(document).ready(function(){
             },
             success: (data) => {
                 data = JSON.parse(data);
-                console.log(data)
-            },
+                console.log(data);
+                alert("Successfully posted! Refresh page to see post.");
+            },    
             error: function(xhr, status, error) {
                 var err = eval("An error has occured" + "(" + xhr.responseText + ")");
                 alert(err.Message);
             }
         });
     });
-
 });
 function replyPost(code){
     const replyCode = code;
-    const replyMsg = $(`#pr${code}`).val();
+    const replyMsg = $(`#pr${replyCode}`).val();
     $.ajax({
         type: "POST",
         url: "http://hyeumine.com/forumReplyPost.php",
@@ -125,7 +169,7 @@ function replyPost(code){
 
 
 function deletePost(code){
-    const deleteCode = code;
+    const deleteCode = code;    
     $.ajax({
         type: "GET",
         url: "http://hyeumine.com/forumDeletePost.php",

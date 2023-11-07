@@ -11,7 +11,7 @@ $(document).ready(function(){
         userID = currUser.id
         console.log(userID)
         currPage = localStorage.getItem("currPage")
-        lastPage();
+        // lastPage();
         getPost(currPage);
         showPosts(posts);
         $("#loginFront").hide()
@@ -81,7 +81,7 @@ $(document).ready(function(){
                 localStorage.setItem("currUser", JSON.stringify(data));
                 localStorage.setItem("loggedIn", "true");
                 localStorage.setItem("currPage", currPage);
-                lastPage();
+                // lastPage();
                 getPost(currPage);
                 $("#registerFront").hide()
                 $("#inProgress").show()
@@ -113,7 +113,7 @@ $(document).ready(function(){
                     localStorage.setItem("loggedIn", "true");
                     localStorage.setItem("currPage", currPage);
                     console.log(userID)
-                    lastPage();
+                    // lastPage();
                     getPost(currPage);
                     $("#loginFront").hide();
                     $("#inProgress").show();
@@ -268,24 +268,26 @@ function showPosts(posts){
     });
 }
 
-function lastPage(){
-    let lFind; 
-    $.ajax({
-        type: "GET",
-        async: false,
-        url: `http://hyeumine.com/forumGetPosts.php`,
-        success: (data) => {
-            lFind = JSON.parse(data)
+// function lastPage(){
+//     let lFind; 
+//     $.ajax({
+//         type: "GET",
+//         async: false,
+//         url: `http://hyeumine.com/forumGetPosts.php`,
+//         success: (data) => {
+//             lFind = JSON.parse(data)
             
-        },
-        error: function(xhr, status, error) {
-            var err = eval("An error has occured" + "(" + xhr.responseText + ")");
-            alert(err.Message);
-        }
-    });
-
-    currPage = Math.ceil(lFind.length/20);
-    Math.ceil(lFind.length/20);
-    document.getElementById("currPage").innerHTML = `Current Page: ${currPage}`
-};
+//         },
+//         error: function(xhr, status, error) {
+//             var err = eval("An error has occured" + "(" + xhr.responseText + ")");
+//             alert(err.Message);
+//         }
+//     });
+    
+//     currPage = Math.ceil(lFind.length/20);
+//     Math.ceil(lFind.length/20);
+//     document.getElementById("currPage").innerHTML = `Current Page: ${currPage}`
+    
+    
+// };
 
